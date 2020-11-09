@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="CSS/PageStyles.js" />
+    <script src="JavaScript/welcomePage.js" ></script>
+    <link rel="stylesheet" type="text/css" href="JavaScript/SuspectSelect.js" />
+    <link rel="stylesheet" type="text/css" href="JavaScript/ending.js" />
+</head>
+<style>
+    #container {
+        width: 1200px;
+        height: 675px;
+        position: center;
+        background: black;
+    }
+    #animate {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        display: none;
+
+    }
+</style>
+<body>
+
+<div id ="container" style="background-image: url("")">
+    <button id = TheButton onClick = f() ></button>
+
+</div>
+
+<script>
+    function f() {
+        document.getElementById("container").innerHTML = "<div id = recycle class='btn' onClick = f1() style='width:100px; height:100px;'></div>"
+        document.getElementById("container").style.backgroundImage ="url('Assets/SecDefComputer/SecDefBackground.png')"
+    }
+    function f1() {
+        document.getElementById("container").innerHTML = "<div id = recycle class='btn' onClick = f() style='width:30px; height:30px;'></div>"
+        document.getElementById("container").style.backgroundImage ="url('Assets/SecDefComputer/Boats.png')"
+    }
+</script>
+
+</body>
+</html>
