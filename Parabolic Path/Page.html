@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<style>
+#container {
+  width: 1000px;
+  height: 400px;
+  position: relative;
+  background: black;
+}
+#animate {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  display: none;
+  
+}
+
+#TimeBox{
+	float: right;
+	color: red;
+	margin: 20px;
+	text-align: center;
+}
+</style>
+<body>
+
+<p><button onclick="myMove()">Click Me</button></p> 
+<p>Score</p>
+<p id = "score">0</p>
+
+<div id ="container">
+  <div id = "TimeBox">
+	<h2>TimeLeft<h2>
+	<h2 id = "ttimer">60<h2>
+  </div>
+  <div id ="animate" ><img id="animateImg" src ="star.png"; style="width:50px" onclick="KeepScore()"></div>
+
+</div>
+
+<script>
+var intScore = 0;
+var intPoints;
+var BBreak = 0;
+var MaxTime = 60000;
+var CurrTime = 0;
+
+function Continue(){
+	
+}
+
+function myMove() {
+  var dblStart = new Array(4);
+  dblStart = START();
+  var posX = dblStart[3];
+  var posY = dblStart[0];
+  var Frame = 40;
+  var TotFrame = 0;
+  var Grav = 9.8
+  var elem = document.getElementById("animate"); 
+  var id = setInterval(frame, Frame);
+  var TIMERR = documet.getElementById("timer");
+  function frame() {
+    if (posY > 350||posY < 0||posX < 0||posX>950||BBreak > 0) {
+      BBreak = 0;
+      clearInterval(id);
+      elem.style.display= "none";
+	  myMove();
+    } else {
+	  elem.style.display= "block";
+      posY += dblStart[1] + Grav * TotFrame;
+      posX += dblStart[2];
+      elem.style.top = posY + "px"; 
+      elem.style.left = posX + "px"; 
+      TotFrame += Frame/3000;
+	  CurrTime = Frame;
+	  TIMERR.innerHTML = Frame;
+	  myMove();
+    }
+  }
+}
+
+function START(){
+	var dblStart = new Array(4);		//0 =yinit 1 = y vel 2 = x vel 3 =xinit 
+    var ymax = 10;
+    var xprob;
+    var COLOR = document.getElementById("animate");
+	var IMAGE = document.getElementById("animateImg");
+    dblStart[0] = Math.floor(Math.random() * 351)+50;
+    ymax = dblStart[0]/150
+    dblStart[1] = -2-(Math.random() * ymax);
+    
+    dblStart[2] = 3+(Math.random() * 8);
+    
+    xprob = Math.floor(Math.random()*20);
+    if(xprob > 9){
+    	dblStart[3] = 950;
+        dblStart[2] = -dblStart[2];
+    }else{
+    dblStart[3] = 0;
+    }
+    
+    if(dblStart[2] > 9){
+    	intPoints = 700;
+        //COLOR.style.backgroundColor = "red";
+		IMAGE.src = "nuget.png";
+    }else if(dblStart[2] > 8){
+    	intPoints = 300;
+		IMAGE.src = "tire.png";
+        //COLOR.style.backgroundColor = "yellow";
+    }else if(dblStart[2] > 0){
+    	intPoints = 100;
+		IMAGE.src = "car.png";
+        //COLOR.style.backgroundColor = "green";
+    }else if(dblStart[2] < -9){
+    	intPoints = 1400;
+		IMAGE.src = "dumpTruck.png";
+        //COLOR.style.backgroundColor = "pink";
+    }else if(dblStart[2] < -8){
+    	intPoints = 600;
+		IMAGE.src = "star.png";
+        //COLOR.style.backgroundColor = "Orange Red";
+    }else{
+    	intPoints = 200;
+		IMAGE.src = "watermelon.png";
+        //COLOR.style.backgroundColor = "#49fb35";
+    }
+    
+    return dblStart;
+}
+
+function KeepScore(){
+	intScore += intPoints
+    document.getElementById("score").innerHTML = intScore
+    BBreak = 1;
+	frame();
+}
+</script>
+
+</body>
+</html>
